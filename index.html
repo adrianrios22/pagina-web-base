@@ -3,63 +3,731 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Restaurante Demo</title>
+
+  <!-- CAMBIAR: nombre del restaurante -->
+  <title>Urban Burger | Hamburguesas artesanales</title>
+
+  <style>
+    :root {
+      /* ============================
+         COLORES PRINCIPALES
+         CAMBIA ESTO PARA CADA CLIENTE
+         ============================ */
+      --fondo: #0b0b0b;
+      --fondo-secundario: #141414;
+      --tarjeta: #181818;
+      --borde: #2a2a2a;
+      --principal: #f5b51b;
+      --principal-claro: #ffd05a;
+      --texto: #ffffff;
+      --texto-secundario: #b8b8b8;
+      --verde-whatsapp: #25d366;
+
+      --radio: 18px;
+      --ancho-maximo: 1200px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(245,181,27,.08), transparent 28%),
+        var(--fondo);
+      color: var(--texto);
+      line-height: 1.6;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .contenedor {
+      width: min(92%, var(--ancho-maximo));
+      margin: auto;
+    }
+
+    /* ============================
+       HEADER
+       ============================ */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(10,10,10,.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--borde);
+    }
+
+    .nav {
+      min-height: 78px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .marca {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      font-size: 24px;
+    }
+
+    .marca-icono {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--principal);
+      color: #111;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+    }
+
+    .marca span {
+      color: var(--principal);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      transition: .25s;
+    }
+
+    .nav-links a:hover {
+      color: var(--principal);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--principal);
+      color: #111;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 900;
+      transition: .25s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: var(--principal-claro);
+    }
+
+    .btn-secundario {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #555;
+      padding: 13px 20px;
+      border-radius: 12px;
+      font-weight: 800;
+    }
+
+    /* ============================
+       HERO
+       ============================ */
+
+    .hero {
+      min-height: 720px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.96) 0%, rgba(0,0,0,.75) 45%, rgba(0,0,0,.20) 100%),
+        url("https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=85&w=1600&auto=format&fit=crop");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 180px;
+      background: linear-gradient(transparent, var(--fondo));
+    }
+
+    .hero-contenido {
+      position: relative;
+      z-index: 2;
+      max-width: 650px;
+      padding: 90px 0;
+    }
+
+    .etiqueta {
+      display: inline-block;
+      color: var(--principal);
+      border: 1px solid rgba(245,181,27,.35);
+      background: rgba(245,181,27,.07);
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(52px, 8vw, 92px);
+      line-height: .94;
+      text-transform: uppercase;
+      letter-spacing: -3px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: var(--principal);
+    }
+
+    .hero p {
+      max-width: 580px;
+      color: #d1d1d1;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .hero-botones {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    /* ============================
+       BENEFICIOS
+       ============================ */
+
+    .beneficios {
+      position: relative;
+      z-index: 3;
+      margin-top: -45px;
+    }
+
+    .beneficios-grid {
+      background: var(--fondo-secundario);
+      border: 1px solid var(--borde);
+      border-radius: var(--radio);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+
+    .beneficio {
+      padding: 28px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      border-right: 1px solid var(--borde);
+    }
+
+    .beneficio:last-child {
+      border-right: 0;
+    }
+
+    .beneficio-icono {
+      font-size: 30px;
+    }
+
+    .beneficio h3 {
+      color: var(--principal);
+      font-size: 15px;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+    }
+
+    .beneficio p {
+      font-size: 13px;
+      color: var(--texto-secundario);
+    }
+
+    /* ============================
+       SECCIONES GENERALES
+       ============================ */
+
+    section {
+      padding: 95px 0;
+    }
+
+    .titulo-pequeno {
+      color: var(--principal);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .titulo {
+      font-size: clamp(34px, 5vw, 54px);
+      text-align: center;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .titulo span {
+      color: var(--principal);
+    }
+
+    .descripcion-seccion {
+      max-width: 650px;
+      text-align: center;
+      color: var(--texto-secundario);
+      margin: 0 auto 45px;
+    }
+
+    /* ============================
+       CATEGORÍAS
+       ============================ */
+
+    .categorias-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+    }
+
+    .categoria {
+      background: linear-gradient(145deg, #191919, #111);
+      border: 1px solid var(--borde);
+      border-radius: 16px;
+      padding: 24px 12px;
+      text-align: center;
+      transition: .25s;
+    }
+
+    .categoria:hover {
+      transform: translateY(-5px);
+      border-color: var(--principal);
+    }
+
+    .categoria .icono {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .categoria h3 {
+      font-size: 14px;
+      color: var(--principal);
+      text-transform: uppercase;
+    }
+
+    .categoria p {
+      color: var(--texto-secundario);
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    /* ============================
+       PRODUCTOS
+       ============================ */
+
+    .productos {
+      background: var(--fondo-secundario);
+    }
+
+    .productos-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .producto {
+      background: var(--tarjeta);
+      border: 1px solid var(--borde);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: .25s;
+    }
+
+    .producto:hover {
+      transform: translateY(-7px);
+      border-color: var(--principal);
+    }
+
+    .producto-imagen {
+      height: 240px;
+      overflow: hidden;
+    }
+
+    .producto-imagen img {
+      height: 100%;
+      object-fit: cover;
+      transition: .35s;
+    }
+
+    .producto:hover img {
+      transform: scale(1.06);
+    }
+
+    .producto-info {
+      padding: 20px;
+    }
+
+    .producto h3 {
+      font-size: 19px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .producto p {
+      color: var(--texto-secundario);
+      font-size: 14px;
+      min-height: 65px;
+    }
+
+    .producto-final {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .precio {
+      color: var(--principal);
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .sumar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--principal);
+      color: #111;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .menu-completo {
+      text-align: center;
+      margin-top: 38px;
+    }
+
+    /* ============================
+       PROMOCIÓN
+       ============================ */
+
+    .promocion {
+      padding-top: 40px;
+    }
+
+    .promo-box {
+      background:
+        linear-gradient(110deg, var(--principal) 0%, #ffc83d 70%);
+      color: #121212;
+      border-radius: 24px;
+      padding: 42px 45px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .promo-box h2 {
+      font-size: clamp(35px, 5vw, 60px);
+      line-height: .95;
+      text-transform: uppercase;
+      max-width: 600px;
+    }
+
+    .promo-box p {
+      font-weight: 700;
+      margin-top: 15px;
+    }
+
+    .promo-icono {
+      font-size: 115px;
+      transform: rotate(-8deg);
+    }
+
+    /* ============================
+       NOSOTROS
+       ============================ */
+
+    .nosotros-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .nosotros-imagen img {
+      height: 500px;
+      object-fit: cover;
+      border-radius: 24px;
+    }
+
+    .nosotros-texto h2 {
+      font-size: clamp(38px, 5vw, 58px);
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .nosotros-texto h2 span {
+      color: var(--principal);
+    }
+
+    .nosotros-texto p {
+      color: var(--texto-secundario);
+      margin-bottom: 25px;
+    }
+
+    /* ============================
+       INFO
+       ============================ */
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .info-card {
+      background: var(--tarjeta);
+      border: 1px solid var(--borde);
+      border-radius: 18px;
+      padding: 28px;
+    }
+
+    .info-card h3 {
+      color: var(--principal);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .info-card p {
+      color: var(--texto-secundario);
+    }
+
+    /* ============================
+       FOOTER
+       ============================ */
+
+    footer {
+      background: #070707;
+      border-top: 1px solid var(--borde);
+      padding: 65px 0 25px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .footer-col h3 {
+      margin-bottom: 14px;
+      color: var(--principal);
+    }
+
+    .footer-col p,
+    .footer-col a {
+      color: #999;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 9px;
+    }
+
+    .copyright {
+      border-top: 1px solid #1f1f1f;
+      margin-top: 45px;
+      padding-top: 20px;
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+    }
+
+    /* ============================
+       WHATSAPP
+       CAMBIAR NÚMERO PARA CLIENTE
+       ============================ */
+
+    .whatsapp {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--verde-whatsapp);
+      color: #fff;
+      font-size: 27px;
+      z-index: 999;
+      box-shadow: 0 12px 30px rgba(0,0,0,.4);
+    }
+
+    /* ============================
+       RESPONSIVE
+       ============================ */
+
+    @media (max-width: 1000px) {
+      .nav-links {
+        display: none;
+      }
+
+      .categorias-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .productos-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nosotros-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .nav {
+        min-height: 68px;
+      }
+
+      .marca {
+        font-size: 19px;
+      }
+
+      .nav .btn {
+        padding: 10px 14px;
+        font-size: 12px;
+      }
+
+      .hero {
+        min-height: 650px;
+        background-position: 62% center;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .beneficios-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .beneficio {
+        border-right: 0;
+        border-bottom: 1px solid var(--borde);
+      }
+
+      .categorias-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .productos-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .promo-box {
+        padding: 32px 25px;
+      }
+
+      .promo-icono {
+        display: none;
+      }
+
+      .nosotros-imagen img {
+        height: 350px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 
 <body>
 
+  <!-- ============================
+       NAVEGACIÓN
+       ============================ -->
+
   <header>
-    <h1>RESTAURANTE DEMO</h1>
-    <p>Hamburguesas, perros y mucho sabor</p>
+    <div class="contenedor nav">
+
+      <a href="#inicio" class="marca">
+        <div class="marca-icono">🍔</div>
+
+        <!-- CAMBIAR NOMBRE -->
+        <div>URBAN <span>BURGER</span></div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#menu">Menú</a>
+        <a href="#promociones">Promociones</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <!-- CAMBIAR WHATSAPP -->
+      <a
+        class="btn"
+        href="https://wa.me/573001234567"
+        target="_blank"
+      >
+        Pedir ahora
+      </a>
+
+    </div>
   </header>
+
+
+  <!-- ============================
+       HERO
+       ============================ -->
 
   <main>
 
-    <section>
-      <h2>Bienvenido</h2>
-      <p>Descubre nuestro menú y pide tus favoritos.</p>
-      <a href="#menu">Ver menú</a>
-    </section>
+    <section class="hero" id="inicio">
 
-    <section id="menu">
-      <h2>Nuestro menú</h2>
+      <div class="contenedor">
+        <div class="hero-contenido">
 
-      <h3>Hamburguesas</h3>
-      <p>Hamburguesa Clásica - $18.000</p>
-      <p>Hamburguesa Especial - $24.000</p>
+          <div class="etiqueta">
+            SABOR ARTESANAL
+          </div>
 
-      <h3>Perros calientes</h3>
-      <p>Perro Clásico - $12.000</p>
-      <p>Perro Especial - $17.000</p>
-
-      <h3>Bebidas</h3>
-      <p>Gaseosa - $5.000</p>
-      <p>Limonada - $7.000</p>
-    </section>
-
-    <section>
-      <h2>Nosotros</h2>
-      <p>
-        Somos un restaurante dedicado a preparar comida deliciosa
-        con ingredientes frescos y mucho sabor.
-      </p>
-    </section>
-
-    <section>
-      <h2>Ubicación</h2>
-      <p>Funza, Cundinamarca</p>
-    </section>
-
-    <section>
-      <h2>Horarios</h2>
-      <p>Lunes a domingo: 12:00 p. m. - 10:00 p. m.</p>
-    </section>
-
-  </main>
-
-  <footer>
-    <p>© 2026 Restaurante Demo</p>
-  </footer>
-
-</body>
-</html>
+          <!-- CAMBIAR TITULAR
