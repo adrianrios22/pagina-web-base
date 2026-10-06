@@ -4,28 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- CAMBIAR: nombre del restaurante -->
-  <title>Urban Burger | Hamburguesas artesanales</title>
+  <!-- =========================
+       CAMBIAR PARA CADA CLIENTE
+       ========================= -->
+  <title>Urban Burger | Restaurante</title>
+  <meta
+    name="description"
+    content="Hamburguesas artesanales, bebidas, entradas y mucho sabor."
+  >
 
   <style>
-    :root {
-      /* ============================
-         COLORES PRINCIPALES
-         CAMBIA ESTO PARA CADA CLIENTE
-         ============================ */
-      --fondo: #0b0b0b;
-      --fondo-secundario: #141414;
-      --tarjeta: #181818;
-      --borde: #2a2a2a;
-      --principal: #f5b51b;
-      --principal-claro: #ffd05a;
-      --texto: #ffffff;
-      --texto-secundario: #b8b8b8;
-      --verde-whatsapp: #25d366;
 
-      --radio: 18px;
-      --ancho-maximo: 1200px;
+    /* ========================================
+       VARIABLES DE LA PLANTILLA
+       CAMBIAR COLORES AQUÍ PARA OTRO CLIENTE
+       ======================================== */
+
+    :root {
+      --fondo: #090909;
+      --fondo-2: #111111;
+      --fondo-3: #171717;
+      --tarjeta: #191919;
+
+      --principal: #f2b51d;
+      --principal-claro: #ffd45c;
+
+      --texto: #ffffff;
+      --texto-gris: #b7b7b7;
+      --borde: #292929;
+
+      --radio: 20px;
+      --ancho: 1200px;
     }
+
+    /* ========================================
+       BASE
+       ======================================== */
 
     * {
       margin: 0;
@@ -34,18 +48,21 @@
       scroll-behavior: smooth;
     }
 
+    html {
+      scroll-padding-top: 85px;
+    }
+
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(245,181,27,.08), transparent 28%),
-        var(--fondo);
+      background: var(--fondo);
       color: var(--texto);
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     img {
-      width: 100%;
       display: block;
+      width: 100%;
     }
 
     a {
@@ -53,150 +70,229 @@
       color: inherit;
     }
 
+    button {
+      font: inherit;
+    }
+
     .contenedor {
-      width: min(92%, var(--ancho-maximo));
+      width: min(92%, var(--ancho));
       margin: auto;
     }
 
-    /* ============================
+    section {
+      padding: 90px 0;
+    }
+
+    .mini-titulo {
+      color: var(--principal);
+      font-size: 13px;
+      letter-spacing: 2px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .titulo-seccion {
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .titulo-seccion span {
+      color: var(--principal);
+    }
+
+    .texto-seccion {
+      color: var(--texto-gris);
+      max-width: 650px;
+      font-size: 17px;
+    }
+
+    .cabecera-seccion {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .cabecera-seccion .texto-seccion {
+      margin: auto;
+    }
+
+    /* ========================================
+       BOTONES
+       ======================================== */
+
+    .boton {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 12px;
+      background: var(--principal);
+      color: #111;
+      font-weight: 900;
+      transition: .25s ease;
+    }
+
+    .boton:hover {
+      background: var(--principal-claro);
+      transform: translateY(-2px);
+    }
+
+    .boton-borde {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 12px;
+      border: 1px solid #555;
+      color: white;
+      font-weight: 800;
+      transition: .25s ease;
+    }
+
+    .boton-borde:hover {
+      border-color: var(--principal);
+      color: var(--principal);
+    }
+
+    /* ========================================
        HEADER
-       ============================ */
+       ======================================== */
 
     header {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(10,10,10,.94);
-      backdrop-filter: blur(10px);
+      background: rgba(8, 8, 8, .94);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--borde);
     }
 
     .nav {
       min-height: 78px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 30px;
+      justify-content: space-between;
+      gap: 25px;
     }
 
-    .marca {
+    .logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
+      font-size: 23px;
       font-weight: 900;
-      font-size: 24px;
+      white-space: nowrap;
     }
 
-    .marca-icono {
+    .logo-icono {
       width: 42px;
       height: 42px;
+      display: grid;
+      place-items: center;
       border-radius: 50%;
       background: var(--principal);
       color: #111;
-      display: grid;
-      place-items: center;
       font-size: 22px;
     }
 
-    .marca span {
+    .logo span {
       color: var(--principal);
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 26px;
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     .nav-links a {
-      transition: .25s;
+      transition: .2s;
     }
 
     .nav-links a:hover {
       color: var(--principal);
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: var(--principal);
-      color: #111;
-      padding: 14px 22px;
-      border-radius: 12px;
-      font-weight: 900;
-      transition: .25s;
+    .menu-movil {
+      display: none;
+      background: transparent;
+      color: white;
+      border: 0;
+      font-size: 28px;
+      cursor: pointer;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
-      background: var(--principal-claro);
-    }
-
-    .btn-secundario {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid #555;
-      padding: 13px 20px;
-      border-radius: 12px;
-      font-weight: 800;
-    }
-
-    /* ============================
+    /* ========================================
        HERO
-       ============================ */
+       ======================================== */
 
     .hero {
+      padding: 0;
       min-height: 720px;
       display: flex;
       align-items: center;
       position: relative;
       overflow: hidden;
+
       background:
-        linear-gradient(90deg, rgba(0,0,0,.96) 0%, rgba(0,0,0,.75) 45%, rgba(0,0,0,.20) 100%),
-        url("https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=85&w=1600&auto=format&fit=crop");
+        linear-gradient(
+          90deg,
+          rgba(0,0,0,.96) 0%,
+          rgba(0,0,0,.87) 38%,
+          rgba(0,0,0,.44) 67%,
+          rgba(0,0,0,.20) 100%
+        ),
+        url("https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=85&w=1800&auto=format&fit=crop");
+
       background-size: cover;
       background-position: center;
     }
 
-    .hero::after {
+    .hero::before {
       content: "";
       position: absolute;
-      inset: auto 0 0 0;
-      height: 180px;
-      background: linear-gradient(transparent, var(--fondo));
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: rgba(242,181,29,.10);
+      filter: blur(100px);
+      right: -100px;
+      top: 60px;
     }
 
     .hero-contenido {
       position: relative;
       z-index: 2;
-      max-width: 650px;
-      padding: 90px 0;
+      max-width: 660px;
+      padding: 100px 0;
     }
 
-    .etiqueta {
-      display: inline-block;
-      color: var(--principal);
-      border: 1px solid rgba(245,181,27,.35);
-      background: rgba(245,181,27,.07);
-      padding: 7px 13px;
+    .hero-etiqueta {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 14px;
+      margin-bottom: 22px;
       border-radius: 999px;
-      font-size: 13px;
+      border: 1px solid rgba(242,181,29,.35);
+      background: rgba(242,181,29,.08);
+      color: var(--principal);
+      font-size: 12px;
+      letter-spacing: 1.5px;
       font-weight: 900;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
     }
 
     .hero h1 {
-      font-size: clamp(52px, 8vw, 92px);
-      line-height: .94;
+      font-size: clamp(54px, 8vw, 95px);
+      line-height: .91;
       text-transform: uppercase;
-      letter-spacing: -3px;
-      margin-bottom: 22px;
+      letter-spacing: -4px;
+      margin-bottom: 24px;
     }
 
     .hero h1 span {
@@ -204,7 +300,7 @@
     }
 
     .hero p {
-      max-width: 580px;
+      max-width: 570px;
       color: #d1d1d1;
       font-size: 18px;
       margin-bottom: 30px;
@@ -212,35 +308,35 @@
 
     .hero-botones {
       display: flex;
-      gap: 15px;
       flex-wrap: wrap;
+      gap: 14px;
     }
 
-    /* ============================
+    /* ========================================
        BENEFICIOS
-       ============================ */
+       ======================================== */
 
     .beneficios {
+      margin-top: -42px;
       position: relative;
-      z-index: 3;
-      margin-top: -45px;
+      z-index: 20;
     }
 
     .beneficios-grid {
-      background: var(--fondo-secundario);
-      border: 1px solid var(--borde);
-      border-radius: var(--radio);
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      background: var(--fondo-2);
+      border: 1px solid var(--borde);
+      border-radius: var(--radio);
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      box-shadow: 0 25px 70px rgba(0,0,0,.35);
     }
 
     .beneficio {
-      padding: 28px;
       display: flex;
-      gap: 16px;
       align-items: center;
+      gap: 16px;
+      padding: 27px;
       border-right: 1px solid var(--borde);
     }
 
@@ -254,112 +350,77 @@
 
     .beneficio h3 {
       color: var(--principal);
-      font-size: 15px;
-      margin-bottom: 3px;
       text-transform: uppercase;
+      font-size: 14px;
+      margin-bottom: 3px;
     }
 
     .beneficio p {
+      color: var(--texto-gris);
       font-size: 13px;
-      color: var(--texto-secundario);
     }
 
-    /* ============================
-       SECCIONES GENERALES
-       ============================ */
-
-    section {
-      padding: 95px 0;
-    }
-
-    .titulo-pequeno {
-      color: var(--principal);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-align: center;
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-
-    .titulo {
-      font-size: clamp(34px, 5vw, 54px);
-      text-align: center;
-      text-transform: uppercase;
-      line-height: 1;
-      margin-bottom: 18px;
-    }
-
-    .titulo span {
-      color: var(--principal);
-    }
-
-    .descripcion-seccion {
-      max-width: 650px;
-      text-align: center;
-      color: var(--texto-secundario);
-      margin: 0 auto 45px;
-    }
-
-    /* ============================
+    /* ========================================
        CATEGORÍAS
-       ============================ */
+       ======================================== */
 
     .categorias-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
     }
 
     .categoria {
-      background: linear-gradient(145deg, #191919, #111);
+      min-height: 180px;
+      background:
+        linear-gradient(145deg, #191919, #111111);
       border: 1px solid var(--borde);
-      border-radius: 16px;
-      padding: 24px 12px;
+      border-radius: 18px;
+      padding: 28px 18px;
       text-align: center;
       transition: .25s;
     }
 
     .categoria:hover {
-      transform: translateY(-5px);
       border-color: var(--principal);
+      transform: translateY(-6px);
     }
 
-    .categoria .icono {
-      font-size: 42px;
-      margin-bottom: 10px;
+    .categoria-icono {
+      font-size: 48px;
+      margin-bottom: 14px;
     }
 
     .categoria h3 {
-      font-size: 14px;
       color: var(--principal);
       text-transform: uppercase;
+      font-size: 16px;
+      margin-bottom: 5px;
     }
 
     .categoria p {
-      color: var(--texto-secundario);
-      font-size: 12px;
-      margin-top: 5px;
+      color: var(--texto-gris);
+      font-size: 13px;
     }
 
-    /* ============================
+    /* ========================================
        PRODUCTOS
-       ============================ */
+       ======================================== */
 
     .productos {
-      background: var(--fondo-secundario);
+      background: var(--fondo-2);
     }
 
     .productos-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 22px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
     }
 
     .producto {
       background: var(--tarjeta);
       border: 1px solid var(--borde);
-      border-radius: 18px;
+      border-radius: 20px;
       overflow: hidden;
       transition: .25s;
     }
@@ -370,7 +431,7 @@
     }
 
     .producto-imagen {
-      height: 240px;
+      height: 250px;
       overflow: hidden;
     }
 
@@ -381,30 +442,30 @@
     }
 
     .producto:hover img {
-      transform: scale(1.06);
+      transform: scale(1.05);
     }
 
     .producto-info {
-      padding: 20px;
+      padding: 22px;
     }
 
-    .producto h3 {
-      font-size: 19px;
+    .producto-info h3 {
+      font-size: 20px;
       text-transform: uppercase;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
 
-    .producto p {
-      color: var(--texto-secundario);
+    .producto-info p {
+      color: var(--texto-gris);
       font-size: 14px;
-      min-height: 65px;
+      min-height: 66px;
     }
 
-    .producto-final {
+    .producto-abajo {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 14px;
+      margin-top: 16px;
     }
 
     .precio {
@@ -413,65 +474,55 @@
       font-weight: 900;
     }
 
-    .sumar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: var(--principal);
+    .etiqueta-producto {
       color: #111;
-      font-size: 22px;
+      background: var(--principal);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
       font-weight: 900;
     }
 
-    .menu-completo {
-      text-align: center;
-      margin-top: 38px;
-    }
-
-    /* ============================
+    /* ========================================
        PROMOCIÓN
-       ============================ */
+       ======================================== */
 
-    .promocion {
-      padding-top: 40px;
+    .promo {
+      padding: 55px 0;
     }
 
     .promo-box {
       background:
-        linear-gradient(110deg, var(--principal) 0%, #ffc83d 70%);
-      color: #121212;
-      border-radius: 24px;
-      padding: 42px 45px;
+        linear-gradient(120deg, #d89900, var(--principal), #ffd258);
+      color: #111;
+      border-radius: 25px;
+      padding: 45px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 30px;
       overflow: hidden;
-      position: relative;
     }
 
     .promo-box h2 {
-      font-size: clamp(35px, 5vw, 60px);
-      line-height: .95;
+      font-size: clamp(38px, 6vw, 65px);
+      line-height: .93;
       text-transform: uppercase;
-      max-width: 600px;
+      margin: 8px 0 14px;
     }
 
     .promo-box p {
       font-weight: 700;
-      margin-top: 15px;
     }
 
     .promo-icono {
-      font-size: 115px;
+      font-size: 120px;
       transform: rotate(-8deg);
     }
 
-    /* ============================
+    /* ========================================
        NOSOTROS
-       ============================ */
+       ======================================== */
 
     .nosotros-grid {
       display: grid;
@@ -480,31 +531,38 @@
       align-items: center;
     }
 
-    .nosotros-imagen img {
-      height: 500px;
+    .nosotros-img {
+      position: relative;
+    }
+
+    .nosotros-img img {
+      height: 520px;
       object-fit: cover;
       border-radius: 24px;
     }
 
-    .nosotros-texto h2 {
-      font-size: clamp(38px, 5vw, 58px);
-      text-transform: uppercase;
-      line-height: 1;
-      margin-bottom: 20px;
-    }
-
-    .nosotros-texto h2 span {
-      color: var(--principal);
+    .nosotros-img::after {
+      content: "";
+      position: absolute;
+      inset: 16px -16px -16px 16px;
+      border: 2px solid var(--principal);
+      border-radius: 24px;
+      z-index: -1;
     }
 
     .nosotros-texto p {
-      color: var(--texto-secundario);
-      margin-bottom: 25px;
+      color: var(--texto-gris);
+      margin-bottom: 22px;
+      font-size: 16px;
     }
 
-    /* ============================
-       INFO
-       ============================ */
+    /* ========================================
+       INFORMACIÓN
+       ======================================== */
+
+    .info {
+      background: var(--fondo-2);
+    }
 
     .info-grid {
       display: grid;
@@ -519,86 +577,145 @@
       padding: 28px;
     }
 
+    .info-card .info-icono {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
     .info-card h3 {
       color: var(--principal);
-      margin-bottom: 10px;
       text-transform: uppercase;
+      font-size: 16px;
+      margin-bottom: 10px;
     }
 
     .info-card p {
-      color: var(--texto-secundario);
+      color: var(--texto-gris);
     }
 
-    /* ============================
+    /* ========================================
+       REDES
+       ======================================== */
+
+    .redes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 35px;
+    }
+
+    .red-social {
+      padding: 22px;
+      border-radius: 16px;
+      background: #151515;
+      border: 1px solid var(--borde);
+      text-align: center;
+      font-weight: 900;
+      transition: .25s;
+    }
+
+    .red-social:hover {
+      border-color: var(--principal);
+      color: var(--principal);
+      transform: translateY(-4px);
+    }
+
+    /* ========================================
        FOOTER
-       ============================ */
+       ======================================== */
 
     footer {
-      background: #070707;
-      border-top: 1px solid var(--borde);
+      background: #050505;
       padding: 65px 0 25px;
+      border-top: 1px solid var(--borde);
     }
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 1.4fr repeat(3, 1fr);
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
       gap: 40px;
     }
 
     .footer-col h3 {
-      margin-bottom: 14px;
       color: var(--principal);
+      margin-bottom: 15px;
     }
 
     .footer-col p,
     .footer-col a {
-      color: #999;
+      color: #909090;
       font-size: 14px;
-      display: block;
       margin-bottom: 9px;
+      display: block;
+    }
+
+    .footer-col a:hover {
+      color: var(--principal);
     }
 
     .copyright {
-      border-top: 1px solid #1f1f1f;
       margin-top: 45px;
       padding-top: 20px;
-      text-align: center;
+      border-top: 1px solid #1f1f1f;
       color: #666;
+      text-align: center;
       font-size: 13px;
     }
 
-    /* ============================
+    /* ========================================
        WHATSAPP
-       CAMBIAR NÚMERO PARA CLIENTE
-       ============================ */
+       ======================================== */
 
-    .whatsapp {
+    .whatsapp-flotante {
       position: fixed;
-      right: 20px;
       bottom: 20px;
-      width: 58px;
-      height: 58px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
       display: grid;
       place-items: center;
-      border-radius: 50%;
-      background: var(--verde-whatsapp);
-      color: #fff;
+      background: #25d366;
+      color: white;
       font-size: 27px;
-      z-index: 999;
-      box-shadow: 0 12px 30px rgba(0,0,0,.4);
+      font-weight: bold;
+      border-radius: 50%;
+      z-index: 900;
+      box-shadow: 0 15px 35px rgba(0,0,0,.40);
+      transition: .25s;
     }
 
-    /* ============================
-       RESPONSIVE
-       ============================ */
+    .whatsapp-flotante:hover {
+      transform: scale(1.07);
+    }
 
-    @media (max-width: 1000px) {
+    /* ========================================
+       RESPONSIVE TABLET
+       ======================================== */
+
+    @media (max-width: 950px) {
+
       .nav-links {
+        position: absolute;
+        top: 78px;
+        left: 0;
+        right: 0;
+        background: #0b0b0b;
+        border-bottom: 1px solid var(--borde);
         display: none;
+        flex-direction: column;
+        padding: 25px;
+      }
+
+      .nav-links.activo {
+        display: flex;
+      }
+
+      .menu-movil {
+        display: block;
       }
 
       .categorias-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .productos-grid {
@@ -612,29 +729,52 @@
       .footer-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
     }
 
-    @media (max-width: 650px) {
-      .nav {
-        min-height: 68px;
-      }
+    /* ========================================
+       RESPONSIVE CELULAR
+       ======================================== */
 
-      .marca {
-        font-size: 19px;
-      }
+    @media (max-width: 620px) {
 
-      .nav .btn {
-        padding: 10px 14px;
-        font-size: 12px;
+      section {
+        padding: 70px 0;
       }
 
       .hero {
-        min-height: 650px;
-        background-position: 62% center;
+        min-height: 660px;
+        background-position: 60% center;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            0deg,
+            rgba(0,0,0,.75),
+            transparent 45%
+          );
+      }
+
+      .hero-contenido {
+        padding: 80px 0;
+        z-index: 3;
       }
 
       .hero h1 {
+        font-size: 54px;
         letter-spacing: -2px;
+      }
+
+      .hero p {
+        font-size: 16px;
       }
 
       .beneficios-grid {
@@ -646,88 +786,1327 @@
         border-bottom: 1px solid var(--borde);
       }
 
+      .beneficio:last-child {
+        border-bottom: 0;
+      }
+
       .categorias-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr 1fr;
       }
 
       .productos-grid {
         grid-template-columns: 1fr;
       }
 
+      .producto-imagen {
+        height: 230px;
+      }
+
       .promo-box {
-        padding: 32px 25px;
+        padding: 30px 24px;
       }
 
       .promo-icono {
         display: none;
       }
 
-      .nosotros-imagen img {
-        height: 350px;
+      .nosotros-img img {
+        height: 380px;
       }
 
-      .info-grid {
+      .redes-grid {
         grid-template-columns: 1fr;
       }
 
       .footer-grid {
         grid-template-columns: 1fr;
       }
+
     }
+
   </style>
 </head>
 
 
 <body>
 
-  <!-- ============================
-       NAVEGACIÓN
-       ============================ -->
+  <!-- ========================================
+       HEADER
+       ======================================== -->
 
   <header>
+
     <div class="contenedor nav">
 
-      <a href="#inicio" class="marca">
-        <div class="marca-icono">🍔</div>
+      <!-- CAMBIAR NOMBRE DEL CLIENTE -->
 
-        <!-- CAMBIAR NOMBRE -->
-        <div>URBAN <span>BURGER</span></div>
+      <a href="#inicio" class="logo">
+
+        <div class="logo-icono">
+          🍔
+        </div>
+
+        <div>
+          URBAN <span>BURGER</span>
+        </div>
+
       </a>
 
-      <nav class="nav-links">
+
+      <nav class="nav-links" id="navLinks">
+
         <a href="#inicio">Inicio</a>
+
+        <a href="#categorias">Categorías</a>
+
         <a href="#menu">Menú</a>
-        <a href="#promociones">Promociones</a>
+
         <a href="#nosotros">Nosotros</a>
-        <a href="#contacto">Contacto</a>
+
+        <a href="#ubicacion">Ubicación</a>
+
+        <a href="#redes">Redes</a>
+
       </nav>
 
-      <!-- CAMBIAR WHATSAPP -->
-      <a
-        class="btn"
-        href="https://wa.me/573001234567"
-        target="_blank"
+
+      <button
+        class="menu-movil"
+        id="menuMovil"
+        aria-label="Abrir menú"
       >
-        Pedir ahora
-      </a>
+        ☰
+      </button>
 
     </div>
+
   </header>
 
 
-  <!-- ============================
-       HERO
-       ============================ -->
-
   <main>
+
+    <!-- ========================================
+         HERO
+         ======================================== -->
 
     <section class="hero" id="inicio">
 
       <div class="contenedor">
+
         <div class="hero-contenido">
 
-          <div class="etiqueta">
+          <div class="hero-etiqueta">
             SABOR ARTESANAL
           </div>
 
-          <!-- CAMBIAR TITULAR
+
+          <!-- CAMBIAR TEXTO PRINCIPAL -->
+
+          <h1>
+            Hechas para
+            <span>disfrutar</span>
+          </h1>
+
+
+          <p>
+            Hamburguesas artesanales, ingredientes frescos
+            y combinaciones creadas para convertir cualquier
+            antojo en una experiencia increíble.
+          </p>
+
+
+          <div class="hero-botones">
+
+            <a href="#menu" class="boton">
+              Ver menú ↓
+            </a>
+
+            <a href="#nosotros" class="boton-borde">
+              Conócenos
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================
+         BENEFICIOS
+         ======================================== -->
+
+    <div class="beneficios">
+
+      <div class="contenedor beneficios-grid">
+
+
+        <div class="beneficio">
+
+          <div class="beneficio-icono">
+            🥬
+          </div>
+
+          <div>
+
+            <h3>
+              Ingredientes frescos
+            </h3>
+
+            <p>
+              Seleccionados para cada preparación.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="beneficio">
+
+          <div class="beneficio-icono">
+            🔥
+          </div>
+
+          <div>
+
+            <h3>
+              Preparado al momento
+            </h3>
+
+            <p>
+              Sabor fresco desde nuestra cocina.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="beneficio">
+
+          <div class="beneficio-icono">
+            ⭐
+          </div>
+
+          <div>
+
+            <h3>
+              Sabor que destaca
+            </h3>
+
+            <p>
+              Recetas pensadas para querer volver.
+            </p>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <!-- ========================================
+         CATEGORÍAS
+         ======================================== -->
+
+    <section id="categorias">
+
+      <div class="contenedor">
+
+        <div class="cabecera-seccion">
+
+          <p class="mini-titulo">
+            Explora nuestro menú
+          </p>
+
+          <h2 class="titulo-seccion">
+            Elige tu <span>antojo</span>
+          </h2>
+
+          <p class="texto-seccion">
+            Encuentra fácilmente lo que quieres probar hoy.
+          </p>
+
+        </div>
+
+
+        <div class="categorias-grid">
+
+
+          <a href="#hamburguesas" class="categoria">
+
+            <div class="categoria-icono">
+              🍔
+            </div>
+
+            <h3>
+              Hamburguesas
+            </h3>
+
+            <p>
+              Artesanales y llenas de sabor
+            </p>
+
+          </a>
+
+
+          <a href="#bebidas" class="categoria">
+
+            <div class="categoria-icono">
+              🥤
+            </div>
+
+            <h3>
+              Bebidas
+            </h3>
+
+            <p>
+              Frías y refrescantes
+            </p>
+
+          </a>
+
+
+          <a href="#entradas" class="categoria">
+
+            <div class="categoria-icono">
+              🍟
+            </div>
+
+            <h3>
+              Entradas
+            </h3>
+
+            <p>
+              Perfectas para compartir
+            </p>
+
+          </a>
+
+
+          <a href="#postres" class="categoria">
+
+            <div class="categoria-icono">
+              🍰
+            </div>
+
+            <h3>
+              Postres
+            </h3>
+
+            <p>
+              El final perfecto
+            </p>
+
+          </a>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================
+         HAMBURGUESAS
+         ======================================== -->
+
+    <section class="productos" id="menu">
+
+      <div class="contenedor">
+
+        <div class="cabecera-seccion" id="hamburguesas">
+
+          <p class="mini-titulo">
+            Las favoritas
+          </p>
+
+          <h2 class="titulo-seccion">
+            Nuestras <span>hamburguesas</span>
+          </h2>
+
+          <p class="texto-seccion">
+            Productos de ejemplo para esta plantilla.
+            Después se cambian según cada restaurante.
+          </p>
+
+        </div>
+
+
+        <div class="productos-grid">
+
+
+          <article class="producto">
+
+            <div class="producto-imagen">
+
+              <img
+                src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=85&w=900&auto=format&fit=crop"
+                alt="Hamburguesa clásica"
+              >
+
+            </div>
+
+
+            <div class="producto-info">
+
+              <h3>
+                Burger Clásica
+              </h3>
+
+              <p>
+                Carne artesanal, queso cheddar,
+                vegetales frescos y salsa especial.
+              </p>
+
+              <div class="producto-abajo">
+
+                <span class="precio">
+                  $18.000
+                </span>
+
+                <span class="etiqueta-producto">
+                  FAVORITA
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="producto">
+
+            <div class="producto-imagen">
+
+              <img
+                src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=85&w=900&auto=format&fit=crop"
+                alt="Hamburguesa doble"
+              >
+
+            </div>
+
+
+            <div class="producto-info">
+
+              <h3>
+                Burger Doble
+              </h3>
+
+              <p>
+                Doble carne, doble queso,
+                tocineta y salsa de la casa.
+              </p>
+
+              <div class="producto-abajo">
+
+                <span class="precio">
+                  $24.000
+                </span>
+
+                <span class="etiqueta-producto">
+                  TOP
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="producto">
+
+            <div class="producto-imagen">
+
+              <img
+                src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?q=85&w=900&auto=format&fit=crop"
+                alt="Hamburguesa especial"
+              >
+
+            </div>
+
+
+            <div class="producto-info">
+
+              <h3>
+                Burger Especial
+              </h3>
+
+              <p>
+                Carne artesanal, queso,
+                cebolla caramelizada y salsa premium.
+              </p>
+
+              <div class="producto-abajo">
+
+                <span class="precio">
+                  $22.000
+                </span>
+
+                <span class="etiqueta-producto">
+                  NUEVA
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================
+         BEBIDAS
+         ======================================== -->
+
+    <section id="bebidas">
+
+      <div class="contenedor">
+
+        <div class="cabecera-seccion">
+
+          <p class="mini-titulo">
+            Para acompañar
+          </p>
+
+          <h2 class="titulo-seccion">
+            Bebidas <span>refrescantes</span>
+          </h2>
+
+        </div>
+
+
+        <div class="productos-grid">
+
+
+          <article class="producto">
+
+            <div class="producto-imagen">
+
+              <img
+                src="https://images.unsplash.com/photo-1621263764928-df1444c5e859?q=85&w=900&auto=format&fit=crop"
+                alt="Limonada"
+              >
+
+            </div>
+
+            <div class="producto-info">
+
+              <h3>
+                Limonada Natural
+              </h3>
+
+              <p>
+                Preparada al momento
+                con limón fresco y hielo.
+              </p>
+
+              <div class="producto-abajo">
+
+                <span class="precio">
+                  $7.000
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="producto">
+
+            <div class="producto-imagen">
+
+              <img
+                src="https://images.unsplash.com/photo-1544145945-f90425340c7e?q=85&w=900&auto=format&fit=crop"
+                alt="Bebida gaseosa"
+              >
+
+            </div>
+
+            <div class="producto-info">
+
+              <h3>
+                Gaseosa
+              </h3>
+
+              <p>
+                Diferentes sabores
+                para acompañar tu comida.
+              </p>
+
+              <div class="producto-abajo">
+
+                <span class="precio">
+                  $5.000
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="producto">
+
+            <div class="producto-imagen">
+
+              <img
+                src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=85&w=900&auto=format&fit=crop"
+                alt="Bebida fría"
+              >
+
+            </div>
+
+            <div class="producto-info">
+
+              <h3>
+                Bebida Especial
+              </h3>
+
+              <p>
+                Refrescante mezcla
+                preparada especialmente para la casa.
+              </p>
+
+              <div class="producto-abajo">
+
+                <span class="precio">
+                  $9.000
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================
+         ENTRADAS
+         ======================================== -->
+
+    <section class="productos" id="entradas">
+
+      <div class="contenedor">
+
+        <div class="cabecera-seccion">
+
+          <p class="mini-titulo">
+            Para compartir
+          </p>
+
+          <h2 class="titulo-seccion">
+            Entradas y <span>acompañamientos</span>
+          </h2>
+
+        </div>
+
+
+        <div class="productos-grid">
+
+
+          <article class="producto">
+
+            <div class="producto-imagen">
+
+              <img
+                src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=85&w=900&auto=format&fit=crop"
+                alt="Papas fritas"
+              >
+
+            </div>
+
+            <div class="producto-info">
+
+              <h3>
+                Papas Clásicas
+              </h3>
+
+              <p>
+                Papas crocantes
+                recién preparadas.
+              </p>
+
+              <div class="producto-abajo">
+
+                <span class="precio">
+                  $8.000
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="producto">
+
+            <div class="producto-imagen">
+
+              <img
+                src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?q=85&w=900&auto=format&fit=crop"
+                alt="Papas especiales"
+              >
+
+            </div>
+
+            <div class="producto-info">
+
+              <h3>
+                Papas Especiales
+              </h3>
+
+              <p>
+                Papas con queso,
+                salsa especial y toppings.
+              </p>
+
+              <div class="producto-abajo">
+
+                <span class="precio">
+                  $13.000
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="producto">
+
+            <div class="producto-imagen">
+
+              <img
+                src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=85&w=900&auto=format&fit=crop"
+                alt="Pollo crocante"
+              >
+
+            </div>
+
+            <div class="producto-info">
+
+              <h3>
+                Pollo Crunch
+              </h3>
+
+              <p>
+                Pollo crocante
+                acompañado de salsa de la casa.
+              </p>
+
+              <div class="producto-abajo">
+
+                <span class="precio">
+                  $16.000
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================
+         POSTRES
+         ======================================== -->
+
+    <section id="postres">
+
+      <div class="contenedor">
+
+        <div class="cabecera-seccion">
+
+          <p class="mini-titulo">
+            Algo dulce
+          </p>
+
+          <h2 class="titulo-seccion">
+            Nuestros <span>postres</span>
+          </h2>
+
+        </div>
+
+
+        <div class="productos-grid">
+
+
+          <article class="producto">
+
+            <div class="producto-imagen">
+
+              <img
+                src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=85&w=900&auto=format&fit=crop"
+                alt="Torta de chocolate"
+              >
+
+            </div>
+
+            <div class="producto-info">
+
+              <h3>
+                Torta de Chocolate
+              </h3>
+
+              <p>
+                Porción suave y chocolatosa,
+                perfecta para cerrar.
+              </p>
+
+              <div class="producto-abajo">
+
+                <span class="precio">
+                  $10.000
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="producto">
+
+            <div class="producto-imagen">
+
+              <img
+                src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=85&w=900&auto=format&fit=crop"
+                alt="Postre"
+              >
+
+            </div>
+
+            <div class="producto-info">
+
+              <h3>
+                Postre de la Casa
+              </h3>
+
+              <p>
+                Una preparación especial
+                que cambia según disponibilidad.
+              </p>
+
+              <div class="producto-abajo">
+
+                <span class="precio">
+                  $12.000
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <article class="producto">
+
+            <div class="producto-imagen">
+
+              <img
+                src="https://images.unsplash.com/photo-1551024506-0bccd828d307?q=85&w=900&auto=format&fit=crop"
+                alt="Donas"
+              >
+
+            </div>
+
+            <div class="producto-info">
+
+              <h3>
+                Dulce Especial
+              </h3>
+
+              <p>
+                Preparación dulce
+                perfecta para acompañar una bebida.
+              </p>
+
+              <div class="producto-abajo">
+
+                <span class="precio">
+                  $9.000
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================
+         PROMOCIÓN
+         ======================================== -->
+
+    <section class="promo">
+
+      <div class="contenedor">
+
+        <div class="promo-box">
+
+          <div>
+
+            <p>
+              PROMOCIÓN DESTACADA
+            </p>
+
+            <h2>
+              Combo<br>
+              especial
+            </h2>
+
+            <p>
+              Hamburguesa + papas + bebida
+            </p>
+
+          </div>
+
+
+          <div class="promo-icono">
+            🍔🔥
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================
+         NOSOTROS
+         ======================================== -->
+
+    <section id="nosotros">
+
+      <div class="contenedor nosotros-grid">
+
+
+        <div class="nosotros-img">
+
+          <img
+            src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=85&w=1000&auto=format&fit=crop"
+            alt="Restaurante"
+          >
+
+        </div>
+
+
+        <div class="nosotros-texto">
+
+          <p class="mini-titulo">
+            Nuestra historia
+          </p>
+
+          <h2 class="titulo-seccion">
+            Cocinamos con
+            <span>pasión</span>
+          </h2>
+
+          <p>
+            Urban Burger nació con una idea sencilla:
+            preparar comida deliciosa con ingredientes frescos,
+            buenas porciones y una experiencia que haga
+            querer volver.
+          </p>
+
+          <p>
+            Esta sección está preparada para que cada cliente
+            pueda contar la historia de su restaurante,
+            negocio o emprendimiento.
+          </p>
+
+
+          <a
+            href="#ubicacion"
+            class="boton"
+          >
+            Visítanos
+          </a>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================
+         UBICACIÓN E INFORMACIÓN
+         ======================================== -->
+
+    <section class="info" id="ubicacion">
+
+      <div class="contenedor">
+
+
+        <div class="cabecera-seccion">
+
+          <p class="mini-titulo">
+            Encuéntranos
+          </p>
+
+          <h2 class="titulo-seccion">
+            Estamos cerca de <span>ti</span>
+          </h2>
+
+        </div>
+
+
+        <div class="info-grid">
+
+
+          <div class="info-card">
+
+            <div class="info-icono">
+              📍
+            </div>
+
+            <h3>
+              Ubicación
+            </h3>
+
+            <!-- CAMBIAR PARA CADA CLIENTE -->
+
+            <p>
+              Funza, Cundinamarca
+            </p>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-icono">
+              🕒
+            </div>
+
+            <h3>
+              Horarios
+            </h3>
+
+            <!-- CAMBIAR PARA CADA CLIENTE -->
+
+            <p>
+              Lunes a domingo<br>
+              12:00 p. m. - 10:00 p. m.
+            </p>
+
+          </div>
+
+
+          <div class="info-card">
+
+            <div class="info-icono">
+              📱
+            </div>
+
+            <h3>
+              Contacto
+            </h3>
+
+            <!-- CAMBIAR PARA CADA CLIENTE -->
+
+            <p>
+              +57 300 123 4567<br>
+              restaurante@email.com
+            </p>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================
+         REDES SOCIALES
+         ======================================== -->
+
+    <section id="redes">
+
+      <div class="contenedor">
+
+
+        <div class="cabecera-seccion">
+
+          <p class="mini-titulo">
+            Síguenos
+          </p>
+
+          <h2 class="titulo-seccion">
+            Encuéntranos en <span>redes</span>
+          </h2>
+
+          <p class="texto-seccion">
+            Conoce nuestras novedades,
+            promociones y productos.
+          </p>
+
+        </div>
+
+
+        <div class="redes-grid">
+
+
+          <!-- CAMBIAR LINKS PARA CADA CLIENTE -->
+
+          <a
+            class="red-social"
+            href="https://instagram.com"
+            target="_blank"
+          >
+            📸 Instagram
+          </a>
+
+
+          <a
+            class="red-social"
+            href="https://facebook.com"
+            target="_blank"
+          >
+            👍 Facebook
+          </a>
+
+
+          <a
+            class="red-social"
+            href="https://tiktok.com"
+            target="_blank"
+          >
+            🎵 TikTok
+          </a>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- ========================================
+       FOOTER
+       ======================================== -->
+
+  <footer>
+
+    <div class="contenedor">
+
+
+      <div class="footer-grid">
+
+
+        <div class="footer-col">
+
+          <a href="#inicio" class="logo">
+
+            <div class="logo-icono">
+              🍔
+            </div>
+
+            <div>
+              URBAN <span>BURGER</span>
+            </div>
+
+          </a>
+
+          <p style="margin-top: 18px;">
+            Comida fresca, sabor increíble
+            y una experiencia para repetir.
+          </p>
+
+        </div>
+
+
+        <div class="footer-col">
+
+          <h3>
+            Navegación
+          </h3>
+
+          <a href="#inicio">
+            Inicio
+          </a>
+
+          <a href="#menu">
+            Menú
+          </a>
+
+          <a href="#nosotros">
+            Nosotros
+          </a>
+
+          <a href="#ubicacion">
+            Ubicación
+          </a>
+
+        </div>
+
+
+        <div class="footer-col">
+
+          <h3>
+            Menú
+          </h3>
+
+          <a href="#hamburguesas">
+            Hamburguesas
+          </a>
+
+          <a href="#bebidas">
+            Bebidas
+          </a>
+
+          <a href="#entradas">
+            Entradas
+          </a>
+
+          <a href="#postres">
+            Postres
+          </a>
+
+        </div>
+
+
+        <div class="footer-col">
+
+          <h3>
+            Contacto
+          </h3>
+
+          <!-- CAMBIAR -->
+
+          <p>
+            📞 +57 300 123 4567
+          </p>
+
+          <p>
+            📍 Funza, Cundinamarca
+          </p>
+
+          <p>
+            ✉ restaurante@email.com
+          </p>
+
+        </div>
+
+
+      </div>
+
+
+      <div class="copyright">
+
+        © 2026 Urban Burger · Todos los derechos reservados
+
+      </div>
+
+
+    </div>
+
+  </footer>
+
+
+  <!-- ========================================
+       WHATSAPP FLOTANTE
+       CAMBIAR NÚMERO
+       ======================================== -->
+
+  <a
+    class="whatsapp-flotante"
+    href="https://wa.me/573001234567"
+    target="_blank"
+    aria-label="WhatsApp"
+  >
+    ☎
+  </a>
+
+
+  <!-- ========================================
+       JAVASCRIPT
+       SOLO PARA MENÚ DE CELULAR
+       ======================================== -->
+
+  <script>
+
+    const botonMenu = document.getElementById("menuMovil");
+
+    const navegacion = document.getElementById("navLinks");
+
+
+    botonMenu.addEventListener("click", () => {
+
+      navegacion.classList.toggle("activo");
+
+    });
+
+
+    const linksMenu = document.querySelectorAll(".nav-links a");
+
+
+    linksMenu.forEach(link => {
+
+      link.addEventListener("click", () => {
+
+        navegacion.classList.remove("activo");
+
+      });
+
+    });
+
+  </script>
+
+
+</body>
+</html>
