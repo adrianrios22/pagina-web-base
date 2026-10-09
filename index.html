@@ -2107,6 +2107,315 @@
 
   </script>
 
+<!-- SISTEMA DE PEDIDOS URBAN BURGER -->
+<style>
+  .btn-agregar {
+    display:block;width:100%;margin-top:15px;
+    padding:13px;border:0;border-radius:12px;
+    background:#f2b51d;color:#111;
+    font-weight:900;cursor:pointer;
+  }
+  .btn-carrito {
+    position:fixed;bottom:20px;left:20px;z-index:1050;
+    border:0;border-radius:30px;padding:15px 20px;
+    background:#f2b51d;color:#111;font-weight:900;
+    box-shadow:0 5px 25px #0009;cursor:pointer;
+  }
+  .fondo-carrito {
+    display:none;position:fixed;inset:0;
+    background:#000b;z-index:2000;
+  }
+  .fondo-carrito.visible {display:block}
+  .panel-carrito {
+    position:absolute;right:0;top:0;
+    width:min(100%,440px);height:100%;
+    overflow:auto;background:#151515;color:white;
+    padding:24px;border-left:1px solid #444;
+  }
+  .panel-carrito h2 {color:#f2b51d}
+  .cerrar-carrito {
+    float:right;background:none;border:0;
+    color:white;font-size:32px;cursor:pointer;
+  }
+  .linea-carrito {
+    display:flex;justify-content:space-between;
+    align-items:center;gap:12px;padding:14px 0;
+    border-bottom:1px solid #444;
+  }
+  .linea-carrito button {
+    padding:5px 11px;background:#333;
+    color:white;border:1px solid #555;
+    border-radius:7px;cursor:pointer;
+  }
+  .cantidad-controles {
+    display:flex;align-items:center;gap:8px;
+  }
+  .pedido-campo {display:block;margin:13px 0}
+  .pedido-campo input,
+  .pedido-campo select,
+  .pedido-campo textarea {
+    display:block;width:100%;margin-top:5px;
+    background:#252525;color:white;
+    border:1px solid #555;border-radius:10px;
+    padding:12px;font:inherit;
+  }
+  .total-carrito {
+    color:#f2b51d;font-size:24px;
+    font-weight:900;margin:20px 0;
+  }
+  .enviar-pedido {
+    width:100%;padding:16px;background:#25d366;
+    border:0;border-radius:12px;
+    font-weight:900;color:#092e19;cursor:pointer;
+  }
+</style>
+
+<button class="btn-carrito" id="abrirPedido">
+  🛒 Carrito (<span id="contadorPedido">0</span>)
+</button>
+
+<div class="fondo-carrito" id="fondoPedido">
+  <div class="panel-carrito" role="dialog"
+       aria-modal="true" aria-label="Tu pedido">
+    <button class="cerrar-carrito"
+            id="cerrarPedido" aria-label="Cerrar">×</button>
+    <h2>🛒 Tu pedido</h2>
+    <div id="listaPedido"></div>
+    <p class="total-carrito">
+      Total productos: <span id="totalPedido">$0</span>
+    </p>
+
+    <form id="formularioPedido">
+      <label class="pedido-campo">
+        Nombre completo *
+        <input name="nombre" required maxlength="100">
+      </label>
+      <label class="pedido-campo">
+        Teléfono *
+        <input name="telefono" type="tel"
+               required maxlength="25">
+      </label>
+      <label class="pedido-campo">
+        Tipo de entrega
+        <select name="entrega" id="entregaPedido">
+          <option>Domicilio</option>
+          <option>Recoger en el local</option>
+        </select>
+      </label>
+      <label class="pedido-campo" id="campoDireccion">
+        Dirección *
+        <input name="direccion" id="direccionPedido"
+               required maxlength="180">
+      </label>
+      <label class="pedido-campo">
+        Medio de pago *
+        <select name="pago" required>
+          <option value="">Seleccionar</option>
+          <option>Efectivo</option>
+          <option>Transferencia</option>
+          <option>Datáfono (consultar)</option>
+        </select>
+      </label>
+      <label class="pedido-campo">
+        Observaciones
+        <textarea name="notas" rows="2"
+                  maxlength="300"></textarea>
+      </label>
+      <button class="enviar-pedido" type="submit">
+        ✅ Pedir por WhatsApp
+      </button>
+      <p style="color:#aaa;font-size:12px;margin-top:12px">
+        WhatsApp abrirá el pedido preparado.
+        Pulsa Enviar para mandarlo al restaurante.
+        El domicilio y el pedido deben confirmarse.
+      </p>
+    </form>
+  </div>
+</div>
+
+<script>
+(() => {
+  // NÚMERO DEL RESTAURANTE PARA LOS PEDIDOS
+  const whatsapp = "573144073259";
+
+  const moneda = n => new Intl.NumberFormat("es-CO", {
+    style:"currency",currency:"COP",
+    maximumFractionDigits:0
+  }).format(n);
+
+  const productos = [];
+  const carrito = new Map();
+
+  const fondo = document.getElementById("fondoPedido");
+  const listado = document.getElementById("listaPedido");
+  const totalElemento = document.getElementById("totalPedido");
+  const contador = document.getElementById("contadorPedido");
+
+  document.querySelectorAll("article.producto")
+    .forEach((tarjeta) => {
+      const nombre = tarjeta.querySelector("h3")?.textContent.trim();
+      const precioTexto = tarjeta.querySelector(".precio")?.textContent || "";
+      const precio = Number(precioTexto.replace(/\D/g,""));
+      if (!nombre || !precio) return;
+
+      const id = productos.length;
+      productos.push({nombre,precio});
+
+      const boton = document.createElement("button");
+      boton.className = "btn-agregar";
+      boton.type = "button";
+      boton.textContent = "🛒 Agregar al carrito";
+      boton.addEventListener("click", () => {
+        carrito.set(id,(carrito.get(id)||0)+1);
+        actualizar();
+        abrir();
+      });
+      tarjeta.querySelector(".producto-info").append(boton);
+    });
+
+  function abrir() {
+    fondo.classList.add("visible");
+    document.getElementById("cerrarPedido").focus();
+  }
+
+  function cerrar() {
+    fondo.classList.remove("visible");
+    document.getElementById("abrirPedido").focus();
+  }
+
+  document.getElementById("abrirPedido")
+    .addEventListener("click",abrir);
+  document.getElementById("cerrarPedido")
+    .addEventListener("click",cerrar);
+  fondo.addEventListener("click",e => {
+    if(e.target === fondo) cerrar();
+  });
+  document.addEventListener("keydown",e => {
+    if(e.key === "Escape") cerrar();
+  });
+
+  function cambiar(id,variacion) {
+    const n = (carrito.get(id)||0)+variacion;
+    if(n <= 0) carrito.delete(id);
+    else carrito.set(id,n);
+    actualizar();
+  }
+
+  function actualizar() {
+    listado.replaceChildren();
+    let total = 0;
+    let cantidad = 0;
+
+    if(carrito.size === 0) {
+      const aviso = document.createElement("p");
+      aviso.textContent = "Tu carrito está vacío.";
+      listado.append(aviso);
+    }
+
+    carrito.forEach((n,id) => {
+      const p = productos[id];
+      total += p.precio*n;
+      cantidad += n;
+
+      const fila = document.createElement("div");
+      fila.className = "linea-carrito";
+      const datos = document.createElement("div");
+      const controles = document.createElement("div");
+      controles.className = "cantidad-controles";
+
+      const nombre = document.createElement("strong");
+      nombre.textContent = p.nombre;
+      const subtotal = document.createElement("p");
+      subtotal.textContent = moneda(p.precio*n);
+      datos.append(nombre,subtotal);
+
+      const menos = document.createElement("button");
+      menos.type = "button";
+      menos.textContent = "−";
+      menos.onclick = () => cambiar(id,-1);
+
+      const numero = document.createElement("span");
+      numero.textContent = n;
+
+      const mas = document.createElement("button");
+      mas.type = "button";
+      mas.textContent = "+";
+      mas.onclick = () => cambiar(id,1);
+
+      controles.append(menos,numero,mas);
+      fila.append(datos,controles);
+      listado.append(fila);
+    });
+
+    contador.textContent = cantidad;
+    totalElemento.textContent = moneda(total);
+  }
+
+  const entrega = document.getElementById("entregaPedido");
+  const direccion = document.getElementById("direccionPedido");
+
+  entrega.addEventListener("change",() => {
+    const domicilio = entrega.value === "Domicilio";
+    document.getElementById("campoDireccion").hidden = !domicilio;
+    direccion.required = domicilio;
+  });
+
+  document.getElementById("formularioPedido")
+    .addEventListener("submit",e => {
+      e.preventDefault();
+
+      if(carrito.size === 0) {
+        alert("Primero agrega productos al carrito.");
+        return;
+      }
+
+      const d = new FormData(e.currentTarget);
+      let total = 0;
+      const lineas = [];
+
+      carrito.forEach((n,id) => {
+        const p = productos[id];
+        const subtotal = n*p.precio;
+        total += subtotal;
+        lineas.push(
+          `${n} x ${p.nombre}: ${moneda(subtotal)}`
+        );
+      });
+
+      const mensaje = [
+        "🍔 *NUEVO PEDIDO - URBAN BURGER*",
+        "",
+        "*PRODUCTOS*",
+        ...lineas,
+        "",
+        `*Subtotal:* ${moneda(total)}`,
+        "*Domicilio:* Por confirmar",
+        "",
+        `*Nombre:* ${d.get("nombre")}`,
+        `*Teléfono:* ${d.get("telefono")}`,
+        `*Entrega:* ${d.get("entrega")}`,
+        ...(d.get("entrega")==="Domicilio"
+          ? [`*Dirección:* ${d.get("direccion")}`] : []),
+        `*Pago:* ${d.get("pago")}`,
+        `*Observaciones:* ${d.get("notas")||"Ninguna"}`,
+        "",
+        "Por favor, confirma disponibilidad",
+        "y el total final del pedido. ¡Gracias!"
+      ].join("\n");
+
+      window.location.href =
+        `https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`;
+    });
+
+  // Actualizar también el botón flotante de contacto
+  const contacto = document.querySelector(".whatsapp-flotante");
+  if(contacto) contacto.href = `https://wa.me/${whatsapp}`;
+
+  actualizar();
+})();
+</script>
+<!-- FIN SISTEMA DE PEDIDOS -->
+
 
 </body>
 </html>
