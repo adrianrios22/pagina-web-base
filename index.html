@@ -2168,6 +2168,26 @@
     border:0;border-radius:12px;
     font-weight:900;color:#092e19;cursor:pointer;
   }
+
+.btn-carrito {
+  transition: background .2s ease, box-shadow .2s ease;
+}
+
+.btn-carrito:hover {
+  background: #ffd45c;
+  box-shadow: 0 8px 35px rgba(242,181,29,.4);
+}
+
+.btn-agregar:active {
+  transform: scale(.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-carrito, .btn-agregar {
+    transition: none;
+  }
+}
+
 </style>
 
 <button class="btn-carrito" id="abrirPedido">
@@ -2268,10 +2288,86 @@
       boton.addEventListener("click", () => {
         carrito.set(id,(carrito.get(id)||0)+1);
         actualizar();
-        abrir();
+        animarProducto(tarjeta, boton);
       });
       tarjeta.querySelector(".producto-info").append(boton);
     });
+
+function animarProducto(tarjeta, boton) {
+  const carritoBoton = document.getElementById("abrirPedido");
+  const imagen = tarjeta.querySelector(".producto-imagen img");
+
+  const textoOriginal = boton.textContent;
+  boton.textContent = "✓ Añadido";
+
+  setTimeout(() => {
+    boton.textContent = textoOriginal;
+  }, 850);
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
+  if (imagen) {
+    const origen = imagen.getBoundingClientRect();
+    const destino = carritoBoton.getBoundingClientRect();
+
+    const miniatura = imagen.cloneNode(true);
+
+    Object.assign(miniatura.style, {
+      position: "fixed",
+      left: origen.left + origen.width / 2 - 35 + "px",
+      top: origen.top + origen.height / 2 - 35 + "px",
+      width: "70px",
+      height: "70px",
+      objectFit: "cover",
+      borderRadius: "16px",
+      zIndex: "3000",
+      pointerEvents: "none",
+      boxShadow: "0 8px 25px #0009"
+    });
+
+    document.body.appendChild(miniatura);
+
+    const dx = destino.left + destino.width / 2 -
+      (origen.left + origen.width / 2);
+
+    const dy = destino.top + destino.height / 2 -
+      (origen.top + origen.height / 2);
+
+    miniatura.animate([
+      {
+        transform: "translate(0,0) scale(1)",
+        opacity: 1,
+        offset: 0
+      },
+      {
+        transform: `translate(${dx * 0.5}px,${dy * 0.5 - 110}px) scale(.7)`,
+        opacity: 1,
+        offset: .55
+      },
+      {
+        transform: `translate(${dx}px,${dy}px) scale(.15)`,
+        opacity: 0,
+        offset: 1
+      }
+    ], {
+      duration: 750,
+      easing: "ease-in-out"
+    }).finished.then(() => miniatura.remove())
+      .catch(() => miniatura.remove());
+  }
+
+  carritoBoton.animate([
+    { transform: "scale(1)" },
+    { transform: "scale(1.18)" },
+    { transform: "scale(1)" }
+  ], {
+    duration: 400,
+    delay: 650,
+    easing: "ease-out"
+  });
+}
 
   function abrir() {
     fondo.classList.add("visible");
